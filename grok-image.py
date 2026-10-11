@@ -52,10 +52,16 @@ def generate_grok_video():
         "resolution": "720p"
     }
 
-    # Add images if provided
+    # Add first-frame image if provided
     if image_input:
         image_data_url = get_image_data_url(image_input)
-        payload["images"] = [image_data_url]
+        payload["frame_images"] = [
+            {
+                "type": "image_url",
+                "image_url": {"url": image_data_url},
+                "frame_type": "first_frame"
+            }
+        ]
 
     # Step 1: Submit generation job
     print("\n🚀 Submitting video generation job to OpenRouter...")
